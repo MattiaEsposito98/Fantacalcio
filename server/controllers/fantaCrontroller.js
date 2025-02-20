@@ -1,4 +1,4 @@
-const connection = require('../data/controllers')
+const connection = require('../data/data')
 
 function proprietari(req, res) {
   const sql = `
