@@ -3,13 +3,16 @@ import axios from 'axios'
 
 export const GlobalContext = createContext()
 
-export default function GlobalProvider({ childern }) {
+export default function GlobalProvider({ children }) {
   const [partecipanti, setPartecipanti] = useState([])
 
 
   function fetchPartecipanti() {
     axios.get('http://localhost:3000/api/fantacalcio')
-      .then(res => setPartecipanti(res.data))
+      .then(res => {
+        setPartecipanti(res.data)
+        console.log(res.data)
+      })
       .catch(err => console.error(err))
   }
 
@@ -19,7 +22,7 @@ export default function GlobalProvider({ childern }) {
 
   return (
     <GlobalContext.Provider value={{ partecipanti, setPartecipanti }}>
-      {childern}
+      {children}
     </GlobalContext.Provider>
   )
 

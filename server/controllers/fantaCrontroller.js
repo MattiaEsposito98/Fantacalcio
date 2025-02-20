@@ -3,6 +3,7 @@ const connection = require('../data/data')
 function proprietari(req, res) {
   const sql = `
   SELECT 
+	  proprietari.id_proprietario,
     proprietari.nome AS proprietario_nome, 
     proprietari.crediti_totali, 
     proprietari.crediti_rimanenti, 
@@ -10,7 +11,7 @@ function proprietari(req, res) {
     calciatori.costo 
   FROM 
     db_fantacalcio.proprietari
-  JOIN 
+  Left JOIN 
     calciatori ON proprietari.id_proprietario = calciatori.id_proprietario
   ORDER BY 
     proprietari.id_proprietario;`
