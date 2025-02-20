@@ -1,11 +1,25 @@
 import { useEffect } from 'react';
+import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
-import { Tooltip, Toast, Popover } from "bootstrap";
+import { faPen, faTrash, faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip } from "bootstrap";
 
-export default function Buttons() {
+export default function Buttons({ id }) {
+
+  // Funzione per eliminare un partecipante
+  const deletePartecipante = () => {
+    if (!id) {
+      console.error("ID non definito!");
+      return;
+    }
+
+    axios.delete(`http://localhost:3000/api/fantacalcio/${id}`)
+      .then(res => {
+        console.log('Partecipante eliminato');
+        window.location.reload(); // Ricarica la pagina dopo l'eliminazione
+      })
+      .catch(err => console.error("Errore durante l'eliminazione:", err));
+  };
 
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -17,12 +31,17 @@ export default function Buttons() {
       <button className="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="tooltip" title="Modifica">
         <FontAwesomeIcon icon={faPen} />
       </button>
-      <button className="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="tooltip" title="Elimina">
+      <button
+        className="btn btn-sm btn-outline-danger ms-2"
+        data-bs-toggle="tooltip"
+        title="Elimina"
+        onClick={deletePartecipante}
+      >
         <FontAwesomeIcon icon={faTrash} />
       </button>
       <button className="btn btn-sm btn-outline-success ms-2" data-bs-toggle="tooltip" title="Vendi">
         <FontAwesomeIcon icon={faSackDollar} />
       </button>
     </div>
-  )
+  );
 }
