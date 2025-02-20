@@ -1,11 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GlobalContext } from "../context/GlobalContext";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faSackDollar } from '@fortawesome/free-solid-svg-icons';
+import { Tooltip, Toast, Popover } from "bootstrap";
+
 
 export default function ProprietarioCard() {
   const { partecipanti } = useContext(GlobalContext);
 
-  // Supponendo che i partecipanti contengano un array di oggetti
-  // contenente i dati del proprietario e i calciatori
+
+  //Per creare in un unica card tutti dati di ogni singolo partecipante
   const proprietari = partecipanti.reduce((acc, parte) => {
     const { proprietario_nome, crediti_totali, crediti_rimanenti, calciatore_nome, costo } = parte;
 
@@ -20,6 +26,11 @@ export default function ProprietarioCard() {
     acc[proprietario_nome].calciatori.push({ calciatore_nome, costo });
     return acc;
   }, {});
+
+  useEffect(() => {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(tooltip => new Tooltip(tooltip));
+  }, []);
 
   return (
     <>
@@ -38,6 +49,20 @@ export default function ProprietarioCard() {
                   {proprietari[nome].calciatori.map((calciatore) => (
                     <li className="list-group-item" key={calciatore.calciatore_nome}>
                       {calciatore.calciatore_nome} - Prezzo: {calciatore.costo}
+                      {/* Bottoni per modifiche */}
+                      <div className="d-flex gap-2">
+                        <button className="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="tooltip" title="Modifica">
+                          <FontAwesomeIcon icon={faPen} />
+                        </button>
+                        <button className="btn btn-sm btn-outline-danger ms-2" data-bs-toggle="tooltip" title="Elimina">
+                          <FontAwesomeIcon icon={faTrash} />
+                        </button>
+                        <button className="btn btn-sm btn-outline-success ms-2" data-bs-toggle="tooltip" title="Vendi">
+                          <FontAwesomeIcon icon={faSackDollar} />
+                        </button>
+                      </div>
+
+
                     </li>
                   ))}
                 </ul>
