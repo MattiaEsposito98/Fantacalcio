@@ -23,6 +23,33 @@ function proprietari(req, res) {
   })
 }
 
+
+//addPlayer
+function AddPlayer(req, res) {
+  const { nome, crediti_totali } = req.body;
+
+  if (!nome || crediti_totali === undefined) {
+    return res.status(400).json({ message: 'Nome e crediti devono essere obbligatori' });
+  }
+
+  const creditiNumerici = Number(crediti_totali);
+  if (isNaN(creditiNumerici)) {
+    return res.status(400).json({ message: 'I crediti devono essere un numero valido' });
+  }
+
+  const sql = `INSERT INTO db_fantacalcio.proprietari (nome, crediti_totali) VALUES (?, ?);`;
+
+  connection.query(sql, [nome, creditiNumerici], (err, results) => {
+    if (err) {
+      console.error('Errore nell’inserimento nel database:', err);
+      return res.status(500).json({ message: 'Errore del server' });
+    }
+
+    return res.status(201).json({ message: 'Partecipante aggiunto con successo', id: results.insertId });
+  });
+}
+
+
 //Delete 
 function remove(req, res) {
   const { id } = req.params
@@ -38,4 +65,4 @@ function remove(req, res) {
   })
 }
 
-module.exports = { proprietari, remove }
+module.exports = { proprietari, remove, AddPlayer }
