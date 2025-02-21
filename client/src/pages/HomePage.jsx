@@ -45,7 +45,6 @@ export default function ProprietarioCard() {
       <ButtonAddPartecipant />
       <div className="container">
         <div className="row">
-
           {Object.keys(proprietari).length > 0 ? (
             Object.keys(proprietari).map((id_proprietario) => (
               <div className="col-12 col-md-6 col-lg-3" key={id_proprietario} style={{ marginBottom: "1rem" }}>
