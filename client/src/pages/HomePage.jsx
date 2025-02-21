@@ -4,6 +4,7 @@ import Buttons from "../components/Buttons";
 import FormPlayers from "../components/FormPlayers";
 import AddParticipant from "../components/AddParticipant";
 import ButtonAddPartecipant from "../components/ButtonAddPartecipant";
+import RemovePartecipant from "../components/RemovePartecipant";
 
 export default function ProprietarioCard() {
   const { partecipanti } = useContext(GlobalContext);
@@ -43,7 +44,11 @@ export default function ProprietarioCard() {
               <div className="col-12 col-md-6 col-lg-3" key={id_proprietario} style={{ marginBottom: "1rem" }}>
                 <div className="card" style={{ width: "100%" }}>
                   <div className="card-header">
-                    <h4 className="text-center">{proprietari[id_proprietario].proprietario_nome}</h4>
+                    <div className="d-flex justify-content-between">
+                      <h4 className="text-center">{proprietari[id_proprietario].proprietario_nome}</h4>
+                      <RemovePartecipant id={id_proprietario} />
+                    </div>
+
                     <p>Crediti Totali: {proprietari[id_proprietario].crediti_totali}</p>
                     <p>Crediti Rimanenti: <strong>{proprietari[id_proprietario].crediti_rimanenti}</strong></p>
                     <button

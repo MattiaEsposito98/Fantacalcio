@@ -7,19 +7,19 @@ import { Tooltip } from "bootstrap";
 export default function Buttons({ id }) {
 
   // Funzione per eliminare un partecipante
-  const deletePartecipante = () => {
-    if (!id) {
-      console.error("ID non definito!");
-      return;
-    }
+  // const deletePartecipante = () => {
+  //   if (!id) {
+  //     console.error("ID non definito!");
+  //     return;
+  //   }
 
-    axios.delete(`http://localhost:3000/api/fantacalcio/${id}`)
-      .then(res => {
-        console.log('Partecipante eliminato');
-        window.location.reload(); // Ricarica la pagina dopo l'eliminazione
-      })
-      .catch(err => console.error("Errore durante l'eliminazione:", err));
-  };
+  //   axios.delete(`http://localhost:3000/api/fantacalcio/${id}`)
+  //     .then(res => {
+  //       console.log('Partecipante eliminato');
+  //       window.location.reload(); // Ricarica la pagina dopo l'eliminazione
+  //     })
+  //     .catch(err => console.error("Errore durante l'eliminazione:", err));
+  // };
 
   useEffect(() => {
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
@@ -35,7 +35,6 @@ export default function Buttons({ id }) {
         className="btn btn-sm btn-outline-danger ms-2"
         data-bs-toggle="tooltip"
         title="Elimina"
-        onClick={deletePartecipante}
       >
         <FontAwesomeIcon icon={faTrash} />
       </button>
