@@ -8,19 +8,19 @@ import RemovePartecipant from "../components/RemovePartecipant";
 
 export default function ProprietarioCard() {
   const { partecipanti } = useContext(GlobalContext);
-  const [showForm, setShowForm] = useState({}); // Stato per gestire il form di aggiunta calciatore
+  const [showForm, setShowForm] = useState({})
+  const [showPlayers, setShowPlayers] = useState(false)
 
   // Creazione delle card per ogni partecipante
   const proprietari = partecipanti.reduce((acc, parte) => {
     const { proprietario_nome, crediti_totali, crediti_rimanenti, id_proprietario } = parte;
 
-    // Aggiungi il proprietario se non esiste
     if (!acc[id_proprietario]) {
       acc[id_proprietario] = {
         proprietario_nome,
         crediti_totali,
         crediti_rimanenti,
-        calciatori: [], // Inizializza come array vuoto
+        calciatori: [],
       };
     }
 
@@ -61,20 +61,21 @@ export default function ProprietarioCard() {
                       type="button"
                       className="btn btn-info"
                       onClick={() =>
-                        setShowForm((prev) => ({
+                        setShowForm(((prev) => ({
                           ...prev,
                           [id_proprietario]: !prev[id_proprietario],
-                        }))
+                        })))
                       }
                     >
                       Aggiungi calciatore
                     </button>
                     {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
                   </div>
+                  <button type="button" className="btn btn-secondary" onClick={() => setShowPlayers(!showPlayers)}>{showPlayers ? '↑' : '↓'} Calciatori: {proprietari[id_proprietario].calciatori.length}</button>
 
                   <ul className="list-group list-group-flush">
-                    {proprietari[id_proprietario].calciatori.map((calciatore) => (
-                      <li className="list-group-item" key={calciatore.calciatore_nome}>
+                    {showPlayers && proprietari[id_proprietario].calciatori.map((calciatore) => (
+                      <li className="list-group-item" key={calciatore.id_calciatore}>
                         {calciatore.calciatore_nome} {calciatore.costo && `- Prezzo: ${calciatore.costo}`}
                         <Buttons id={calciatore.id_calciatore} type="calciatore" />
                       </li>
@@ -90,4 +91,6 @@ export default function ProprietarioCard() {
       </div>
     </>
   );
+
+
 }

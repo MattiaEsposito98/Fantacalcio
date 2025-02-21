@@ -16,7 +16,7 @@ function proprietari(req, res) {
   Left JOIN 
     calciatori ON proprietari.id_proprietario = calciatori.id_proprietario
   ORDER BY 
-    proprietari.id_proprietario;`
+    proprietari.crediti_rimanenti;`
 
   connection.query(sql, (err, results) => {
     if (err) return res.status(500).json({ error: 'Database propietari failed' })
@@ -52,7 +52,6 @@ function AddPlayer(req, res) {
 
 //Aggiungere calciatori
 function addPlayerOfFootball(req, res) {
-  console.log('Dati ricevuti:', req.body);
   const { nome, costo, id_proprietario } = req.body
 
   const sql = `
