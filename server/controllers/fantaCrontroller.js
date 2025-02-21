@@ -52,11 +52,18 @@ function AddPlayer(req, res) {
 
 //Aggiungere calciatori
 function addPlayerOfFootball(req, res) {
-  const { nome, costo, id_propietario } = req.body
+  console.log('Dati ricevuti:', req.body);
+  const { nome, costo, id_proprietario } = req.body
+
   const sql = `
   INSERT INTO db_fantacalcio.calciatori (nome, costo, id_proprietario) VALUES (?, ?, ?);
   `
-  connection.query(sql, [nome, costo, id_propietario], (err, results) => {
+
+  if (!nome || !costo || !id_proprietario) {
+    return res.status(400).json({ message: "Dati incompleti" });
+  }
+
+  connection.query(sql, [nome, costo, id_proprietario], (err, results) => {
     if (err) {
       console.error(`Errore nell'inserimento del calciatore nel database`, err);
       return res.status(500).json({ message: 'Errore del server' })

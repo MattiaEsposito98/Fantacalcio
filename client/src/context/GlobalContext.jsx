@@ -21,7 +21,7 @@ export default function GlobalProvider({ children }) {
   }, [])
 
   return (
-    <GlobalContext.Provider value={{ partecipanti, setPartecipanti }}>
+    <GlobalContext.Provider value={{ partecipanti, setPartecipanti, fetchPartecipanti }}>
       {children}
     </GlobalContext.Provider>
   )

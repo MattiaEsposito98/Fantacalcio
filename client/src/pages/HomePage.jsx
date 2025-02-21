@@ -69,7 +69,7 @@ export default function ProprietarioCard() {
                     >
                       Aggiungi calciatore
                     </button>
-                    {showForm[id_proprietario] && <FormPlayers id_proprietario={id_proprietario} />}
+                    {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
                   </div>
 
                   <ul className="list-group list-group-flush">
