@@ -8,8 +8,8 @@ import RemovePartecipant from "../components/RemovePartecipant";
 
 export default function ProprietarioCard() {
   const { partecipanti } = useContext(GlobalContext);
-  const [showForm, setShowForm] = useState({})
-  const [showPlayers, setShowPlayers] = useState(false)
+  const [showForm, setShowForm] = useState({})  // {} Un oggetto ti permette di gestire lo stato individuale di ogni proprietario invece di avere un unico valore globale.
+  const [showPlayers, setShowPlayers] = useState({})
 
   // Creazione delle card per ogni partecipante
   const proprietari = partecipanti.reduce((acc, parte) => {
@@ -71,10 +71,20 @@ export default function ProprietarioCard() {
                     </button>
                     {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
                   </div>
-                  <button type="button" className="btn btn-secondary" onClick={() => setShowPlayers(!showPlayers)}>{showPlayers ? '↑' : '↓'} Calciatori: {proprietari[id_proprietario].calciatori.length}</button>
+                  <button type="button" className="btn btn-secondary" onClick={() =>
+
+                    setShowPlayers((prev) => ({                          //prev contiene lo stato precedente di showPlayers,
+                      ...prev,                                          //...prev mantiene inalterati gli altri valori nello stato, cioè non cancella gli altri proprietari.
+                      [id_proprietario]: !prev[id_proprietario],       // [id_proprietario]: !prev[id_proprietario] cambia SOLO il valore per il proprietario cliccato
+                    }))
+                  }
+
+                  >
+                    {showPlayers[id_proprietario] ? '↑' : '↓'} Calciatori: {proprietari[id_proprietario].calciatori.length}
+                  </button>
 
                   <ul className="list-group list-group-flush">
-                    {showPlayers && proprietari[id_proprietario].calciatori.map((calciatore) => (
+                    {showPlayers[id_proprietario] && proprietari[id_proprietario].calciatori.map((calciatore) => (
                       <li className="list-group-item" key={calciatore.id_calciatore}>
                         {calciatore.calciatore_nome} {calciatore.costo && `- Prezzo: ${calciatore.costo}`}
                         <Buttons id={calciatore.id_calciatore} type="calciatore" />

@@ -4,25 +4,29 @@ const connection = require('../data/data')
 function proprietari(req, res) {
   const sql = `
   SELECT 
-	  proprietari.id_proprietario,
-    proprietari.nome AS proprietario_nome, 
-    proprietari.crediti_totali, 
-    proprietari.crediti_rimanenti, 
-    calciatori.nome AS calciatore_nome, 
-    calciatori.costo,
-    calciatori.id_calciatore
+    p.id_proprietario,
+    p.nome AS proprietario_nome, 
+    p.crediti_totali, 
+    (p.crediti_totali - IFNULL(c.somma_costi, 0)) AS crediti_rimanenti,
+    cal.nome AS calciatore_nome, 
+    cal.costo,
+    cal.id_calciatore
   FROM 
-    db_fantacalcio.proprietari
-  Left JOIN 
-    calciatori ON proprietari.id_proprietario = calciatori.id_proprietario
+    db_fantacalcio.proprietari p
+  LEFT JOIN 
+    (SELECT id_proprietario, SUM(costo) AS somma_costi FROM calciatori GROUP BY id_proprietario) c
+    ON p.id_proprietario = c.id_proprietario
+  LEFT JOIN 
+    calciatori cal ON p.id_proprietario = cal.id_proprietario
   ORDER BY 
-    proprietari.crediti_rimanenti;`
+    crediti_rimanenti;`
 
   connection.query(sql, (err, results) => {
-    if (err) return res.status(500).json({ error: 'Database propietari failed' })
+    if (err) return res.status(500).json({ error: 'Database proprietari failed' })
     res.json(results)
   })
 }
+
 
 
 //addPlayer
