@@ -59,7 +59,7 @@ export default function ProprietarioCard() {
                     <p>Crediti Rimanenti: <strong>{proprietari[id_proprietario].crediti_rimanenti}</strong></p>
                     <button
                       type="button"
-                      className="btn btn-info"
+                      className="btn btn-info me-3"
                       onClick={() =>
                         setShowForm(((prev) => ({
                           ...prev,
@@ -69,7 +69,7 @@ export default function ProprietarioCard() {
                     >
                       Aggiungi calciatore
                     </button>
-                    {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
+                    {showForm[id_proprietario] ? '↑' : '↓'} {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
                   </div>
                   <button type="button" className="btn btn-secondary" onClick={() =>
 
