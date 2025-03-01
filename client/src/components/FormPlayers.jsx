@@ -35,12 +35,12 @@ export default function FormPlayers({ id }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-3">
+    <form onSubmit={handleSubmit} className="mt-3 ">
       <div className="mb-3">
         <input
           type="text"
           name="nome"
-          className="form-control"
+          className="form-control formPlayer"
           id="name"
           aria-describedby="nameHelp"
           placeholder="Inserisci il nome"

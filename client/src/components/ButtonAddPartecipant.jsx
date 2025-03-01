@@ -42,14 +42,14 @@ export default function ButtonAddPartecipant() {
   return (
     <div className="mb-3">
       <button
-        className="btn btn-secondary mb-2 ms-4"
+        className="btn btn-primary mb-2 ms-4"
         onClick={() => setShowForm(!showForm)}
       >
         {showForm ? "Annulla" : "Aggiungi Partecipante"}
       </button>
 
       {showForm && (
-        <form onSubmit={handleSubmit} className="border p-3 rounded" style={{ maxWidth: "400px", margin: "1rem" }}>
+        <form onSubmit={handleSubmit} className="border p-3 rounded formPlayer" style={{ maxWidth: "400px", margin: "1rem" }}>
           <div className="mb-3">
             <label htmlFor="nome" className="form-label">Nome</label>
             <input

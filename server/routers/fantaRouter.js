@@ -14,4 +14,5 @@ router.post('/calciatori', fantaRouter.addPlayerOfFootball)
 //Delete Partecipante o calciatore
 router.delete('/:type/:id', fantaRouter.removeGeneric)
 
+
 module.exports = router

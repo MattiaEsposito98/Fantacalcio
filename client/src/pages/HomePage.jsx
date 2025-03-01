@@ -48,7 +48,7 @@ export default function ProprietarioCard() {
           {Object.keys(proprietari).length > 0 ? (
             Object.keys(proprietari).map((id_proprietario) => (
               <div className="col-12 col-md-6 col-lg-3" key={id_proprietario} style={{ marginBottom: "1rem" }}>
-                <div className="card" style={{ width: "100%" }}>
+                <div className="card bg-info-subtle" style={{ width: "100%" }}>
                   <div className="card-header">
                     <div className="d-flex justify-content-between">
                       <h4 className="text-center">{proprietari[id_proprietario].proprietario_nome}</h4>
@@ -67,11 +67,11 @@ export default function ProprietarioCard() {
                         })))
                       }
                     >
-                      Aggiungi calciatore
+                      {showForm[id_proprietario] ? '@---> ↑ <---@' : 'Aggiungi Calciatore  ↓'}
                     </button>
-                    {showForm[id_proprietario] ? '↑' : '↓'} {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
+                    {showForm[id_proprietario] && <FormPlayers id={id_proprietario} />}
                   </div>
-                  <button type="button" className="btn btn-secondary" onClick={() =>
+                  <button type="button" className="btn btn-light" onClick={() =>
 
                     setShowPlayers((prev) => ({                          //prev contiene lo stato precedente di showPlayers,
                       ...prev,                                          //...prev mantiene inalterati gli altri valori nello stato, cioè non cancella gli altri proprietari.

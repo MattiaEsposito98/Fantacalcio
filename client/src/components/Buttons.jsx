@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash, faSackDollar } from '@fortawesome/free-solid-svg-icons';
@@ -27,6 +27,8 @@ export default function Buttons({ type, id }) {
     tooltipTriggerList.forEach(tooltip => new Tooltip(tooltip));
   }, []);
 
+
+
   return (
     <div className="d-flex gap-2">
       <button className="btn btn-sm btn-outline-primary ms-2" data-bs-toggle="tooltip" title="Modifica">
@@ -40,9 +42,10 @@ export default function Buttons({ type, id }) {
       >
         <FontAwesomeIcon icon={faTrash} />
       </button>
-      <button className="btn btn-sm btn-outline-success ms-2" data-bs-toggle="tooltip" title="Vendi">
+      <button className="btn btn-sm btn-outline-success ms-2" data-bs-toggle="tooltip" title="Vendi alla metà" >
         <FontAwesomeIcon icon={faSackDollar} />
       </button>
-    </div>
+
+    </div >
   );
 }

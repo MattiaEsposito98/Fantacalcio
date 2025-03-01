@@ -27,8 +27,6 @@ function proprietari(req, res) {
   })
 }
 
-
-
 //addPlayer
 function AddPlayer(req, res) {
   const { nome, crediti_totali } = req.body;
@@ -77,7 +75,9 @@ function addPlayerOfFootball(req, res) {
   })
 }
 
-// Delete Partecipanete o calciatore
+
+//Codice funzionante con trigger
+// // Delete Partecipanete o calciatore, aggiorna il database tramite trigger
 function removeGeneric(req, res) {
   const { type, id } = req.params
   let sql = ''
@@ -92,7 +92,7 @@ function removeGeneric(req, res) {
 
   connection.query(sql, [id], (err, results) => {
     if (err) return res.status(500).json({ error: 'Eliminazione non riuscita' })
-    res.json(results)
+    res.status(204).json(results)
   })
 }
 
